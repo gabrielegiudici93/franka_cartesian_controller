@@ -4,8 +4,10 @@ Records magnetic sensor data **without** moving the robot. Use before/after skin
 
 ## Run
 
+From the repo root, after activating the env (`conda activate franka_interface`):
+
 ```bash
-cd ~/franka_magtec_workspace/magtec_models
+cd magtec_models
 ./examples/03_collect_no_touch/run.sh
 ```
 

@@ -10,8 +10,10 @@ Full collection: robot + FT + magnetic skin → HDF5 under `data/Multiple_Points
 
 ## Run
 
+From the repo root, with the env active and the robot reachable (see [`docs/ROBOT_CONNECTION.md`](../../../docs/ROBOT_CONNECTION.md)):
+
 ```bash
-cd ~/franka_magtec_workspace/magtec_models
+cd magtec_models
 ./examples/05_collect_multipoint_data/run.sh
 ```
 

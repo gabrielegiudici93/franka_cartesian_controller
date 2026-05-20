@@ -9,8 +9,10 @@ Train location / stretch / force regressors from collected HDF5 data.
 
 ## Run (template)
 
+From the repo root, after activating the env:
+
 ```bash
-cd ~/franka_magtec_workspace/magtec_models
+cd magtec_models
 ./examples/08_train_models/run.sh
 ```
 

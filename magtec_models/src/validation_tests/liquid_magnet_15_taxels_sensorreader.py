@@ -157,10 +157,10 @@ class TaxelVisualizer:
                 from PIL import ImageGrab as _ImageGrab
 
                 ImageGrab = _ImageGrab
-            probe = imageio.get_writer("/tmp/.cursor_rec_probe.mp4", fps=5, macro_block_size=1)
+            probe = imageio.get_writer("/tmp/.video_rec_probe.mp4", fps=5, macro_block_size=1)
             probe.close()
             try:
-                os.remove("/tmp/.cursor_rec_probe.mp4")
+                os.remove("/tmp/.video_rec_probe.mp4")
             except OSError:
                 pass
             return True

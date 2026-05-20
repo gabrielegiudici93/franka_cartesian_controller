@@ -526,10 +526,10 @@ class TaxelsVisualizationPlus:
 
                 ImageGrab = _ImageGrab
             # Quick writer smoke-check to ensure ffmpeg backend exists.
-            _ = imageio.get_writer("/tmp/.cursor_rec_probe.mp4", fps=5, macro_block_size=1)
+            _ = imageio.get_writer("/tmp/.video_rec_probe.mp4", fps=5, macro_block_size=1)
             _.close()
             try:
-                os.remove("/tmp/.cursor_rec_probe.mp4")
+                os.remove("/tmp/.video_rec_probe.mp4")
             except OSError:
                 pass
             return True

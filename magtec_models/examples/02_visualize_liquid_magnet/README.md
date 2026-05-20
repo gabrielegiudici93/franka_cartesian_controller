@@ -4,8 +4,10 @@ Hybrid visualizer: liquid-magnet rendering + your lab's `SensorReader` connectio
 
 ## Run
 
+From the repo root, after activating the env (`conda activate franka_interface`):
+
 ```bash
-cd ~/franka_magtec_workspace/magtec_models
+cd magtec_models
 ./examples/02_visualize_liquid_magnet/run.sh
 ```
 

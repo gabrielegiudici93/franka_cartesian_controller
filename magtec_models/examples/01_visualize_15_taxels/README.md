@@ -9,14 +9,17 @@ Live 3×5 taxel GUI (Fx/Fy movement, Fz radius).
 
 ## Run
 
+From the repo root, after activating the env (`conda activate franka_interface`):
+
 ```bash
-cd ~/franka_magtec_workspace/magtec_models
+cd magtec_models
 ./examples/01_visualize_15_taxels/run.sh
 ```
 
-Or:
+Or call the script directly:
 
 ```bash
+cd magtec_models
 python3 src/validation_tests/15_taxels_visualization.py
 ```
 
