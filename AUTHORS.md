@@ -15,3 +15,7 @@ This repository is maintained by:
 - `pyfranka_interface/waf` — ResiBots/waf authors (BSD)
 
 If you build on this work, please cite both authors above and respect the original third-party licenses.
+
+## Commit attribution
+
+Git history in this repository should list **only** the human authors above. Do not add automated `Co-authored-by` trailers from IDE or AI tools — they appear as GitHub contributors and are not part of this project.
