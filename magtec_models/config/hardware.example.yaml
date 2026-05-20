@@ -1,0 +1,35 @@
+# Copy to hardware.yaml and edit for your lab setup.
+# Paths (data/models/plots) are relative to magtec_models/ project root.
+
+robot:
+  ROBOT_IP: "192.168.2.10"
+  ROBOT_SPEED_FACTOR: 0.1
+
+ft_sensor:
+  FT_PORT: "/dev/ttyUSB0"
+  FT_BAUDRATE: 19200
+
+stretchmagtec:
+  STRETCHMAGTEC_PORT: "/dev/ttyACM0"
+  STRETCHMAGTEC_BAUD: 1000000
+
+workspace:
+  REFERENCE_POSITION_X: 0.491276
+  REFERENCE_POSITION_Y: 0.4175
+  REFERENCE_POSITION_Z: 0.031311
+
+# Multi-point press center (used by 10-point scripts)
+target_position:
+  x: 0.500781
+  y: 0.419620
+  z: 0.034311
+
+# Initial joint pose (7 values) — measure with get_current_joints.py
+initial_joints:
+  - -1.460883997177473
+  - -1.4397968588005559
+  - 1.8498105422813298
+  - -1.680352194797862
+  - 1.4646542101436189
+  - 1.8593807739681665
+  - 0.8594902150722012

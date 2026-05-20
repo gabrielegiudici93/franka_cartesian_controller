@@ -1,0 +1,12 @@
+.lock-waf_linux_build
+**/.waf*
+**/build
+**/__pycache__
+**/src/.idea
+src/pycartesian_franka.cpython*
+src/pyfranka_interface.cpython-39-x86_64-linux-gnu.so
+*.so
+*.pyc
+*.lock-*
+*.egg-info
+dist/

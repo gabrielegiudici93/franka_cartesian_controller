@@ -1,0 +1,10 @@
+name: franka_interface
+channels:
+- conda-forge
+dependencies:
+- python=3.9
+- pip
+- numpy
+- matplotlib
+- pybind11
+- eigen

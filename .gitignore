@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Data & models (use Git LFS if you need to version large files)
+magtec_models/data/**/*.h5
+magtec_models/models/**/*
+magtec_models/plots/**/*
+magtec_models/logs/**/*
+!magtec_models/data/.gitkeep
+!magtec_models/models/.gitkeep
+!magtec_models/plots/.gitkeep
+!magtec_models/logs/.gitkeep
+
+# Local hardware config (machine-specific)
+magtec_models/config/hardware.yaml
+
+# Recordings
+magtec_models/plots/gui_recordings/
+
+# pyfranka build artifacts
+pyfranka_interface/build/
+pyfranka_interface/.waf3-*/
+pyfranka_interface/.lock-waf*
+pyfranka_interface/src/*.so
+pyfranka_interface/__pycache__/
+pyfranka_interface/.waf-*/
+
+# OS
+.DS_Store
+Thumbs.db

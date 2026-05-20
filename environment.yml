@@ -1,0 +1,22 @@
+name: franka_interface
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9
+  - pip
+  - numpy
+  - scipy
+  - matplotlib
+  - pybind11
+  - eigen
+  - pyyaml
+  - h5py
+  - joblib
+  - scikit-learn
+  - pyserial
+  - pillow
+  - pip:
+      - minimalmodbus
+      - libscrc
+      - imageio
+      - imageio-ffmpeg

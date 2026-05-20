@@ -1,0 +1,26 @@
+# MagTec skin + ML stack (install inside magtec_models usage)
+numpy>=1.21
+scipy>=1.7
+scikit-learn>=1.0
+h5py>=3.0
+joblib>=1.1
+matplotlib>=3.5
+pyserial>=3.5
+minimalmodbus>=2.0
+libscrc
+PyYAML>=6.0
+
+# Optional: video recording in 15-taxel plus GUI
+imageio>=2.9
+imageio-ffmpeg>=0.4
+Pillow>=9.0
+
+# Optional: GPU sensor plots
+# pyqtgraph
+# PyQt5
+
+# Optional: 3D visualization
+# pyvista
+
+# Optional: CNN-LSTM training
+# tensorflow
