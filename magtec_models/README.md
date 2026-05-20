@@ -1,10 +1,30 @@
-# MagTec Models (Essential Handoff)
+# MagTec Models
 
-Subset of the full research codebase: data collection, visualization, and training for the 15-taxel magnetic skin.
+Data collection, real-time visualization, and training for the **15-taxel magnetic skin**, using the Franka controller from the parent repo (`pyfranka_interface`).
+
+**Prerequisites:** complete the Franka setup in the [top-level README](../README.md) (`conda activate franka_interface`, build `pyfranka_interface`).
+
+## Repository layout (this folder)
+
+```
+magtec_models/
+├── README.md                 # this file
+├── config/
+│   ├── hardware.example.yaml
+│   └── hardware.yaml         # you create this (gitignored)
+├── examples/                 # 8 runnable demos — each has README.md + run.sh
+│   ├── 01_visualize_15_taxels/
+│   ├── 02_visualize_liquid_magnet/
+│   ├── …
+│   └── 08_train_models/
+├── docs/guides/OVERVIEW.md   # recommended pipeline
+├── src/                      # core scripts
+└── data/, models/, plots/, logs/   # outputs (empty in the repo)
+```
 
 ## Configure hardware (required)
 
-From the repo root, after activating the conda env (`conda activate franka_interface`):
+From the repo root, with the conda env active:
 
 ```bash
 cd magtec_models
@@ -26,9 +46,21 @@ Check config:
 python3 src/franka_controller/config.py
 ```
 
-## Examples (recommended entry points)
+Install MagTec Python deps (once):
 
-Each subfolder under `examples/` is self-contained: it holds a `README.md` (what it does, what it needs, expected output) and a `run.sh` (one-line launcher). The numbering reflects the recommended order to follow.
+```bash
+pip install -r ../requirements-magtec.txt
+```
+
+## Examples
+
+Each subfolder under `examples/` is self-contained:
+
+```
+examples/<NN_name>/
+├── README.md   # what it does, prerequisites, expected output
+└── run.sh      # launcher (cd's to magtec_models/ and runs the script)
+```
 
 | # | Task | Robot | FT | Skin | Guide |
 |---|------|:-----:|:--:|:----:|-------|
@@ -41,21 +73,50 @@ Each subfolder under `examples/` is self-contained: it holds a `README.md` (what
 | 07 | Shear points 3–8 (fixed Z)        | ✔ | ✔ | — | [examples/07_shear_points_3_8/README.md](examples/07_shear_points_3_8/README.md) |
 | 08 | Train models                      | — | — | — | [examples/08_train_models/README.md](examples/08_train_models/README.md) |
 
-### How to run any example
+Recommended order: **01 → 03 → 05 → 08** (visualize → baseline → collect → train). Use **04 / 06 / 07** to validate the robot without the magnetic port.
 
-Always launch from this directory (`magtec_models/`). `run.sh` does the `cd` for you:
+## How to run an example
+
+Always work from `magtec_models/` (or use `run.sh`, which sets the directory for you):
 
 ```bash
 conda activate franka_interface
 export LD_LIBRARY_PATH=$PWD/../pyfranka_interface/third_party/libfranka/lib:$LD_LIBRARY_PATH
+cd magtec_models
 
-cat examples/01_visualize_15_taxels/README.md     # read first
-./examples/01_visualize_15_taxels/run.sh          # then launch
+cat examples/01_visualize_15_taxels/README.md
+./examples/01_visualize_15_taxels/run.sh
 ```
 
-Only **one** process at a time may open the magnetic serial port — stop the visualization before launching a collection script (or vice versa).
+**Rules**
 
-## Core scripts (working code)
+- Only **one** process at a time may open the magnetic serial port — stop visualization before collection (see [docs/guides/OVERVIEW.md](docs/guides/OVERVIEW.md)).
+- Robot examples (04–07): robot unlocked, FCI enabled — [../docs/ROBOT_CONNECTION.md](../docs/ROBOT_CONNECTION.md).
+
+## First-time walk-through
+
+1. **Visualize** — confirm sensors and calibration:
+   ```bash
+   ./examples/01_visualize_15_taxels/run.sh
+   ```
+2. **No-touch baseline** (no robot):
+   ```bash
+   ./examples/03_collect_no_touch/run.sh
+   ```
+3. **Robot dry-run** (FT only, no skin serial):
+   ```bash
+   ./examples/04_press_10_points/run.sh
+   ```
+4. **Full collection** (robot + FT + skin):
+   ```bash
+   ./examples/05_collect_multipoint_data/run.sh
+   ```
+5. **Train** — edit `examples/08_train_models/run.sh` (`NORMAL_DIR`, `RUN_LABEL`), then:
+   ```bash
+   ./examples/08_train_models/run.sh
+   ```
+
+## Core scripts
 
 ### Data collection
 - `src/franka_controller/franka_skin_test.py` — engine
@@ -85,8 +146,7 @@ models/<run_label>/...
 plots/...
 ```
 
-## Notes for collaborators
+## Further reading
 
-- Only **one** process should open the magnetic serial port at a time
-- Press scripts that use the robot but not the magnet: `franka_shear_test_10_points_quick.py`, `franka_shear_test_points_3_8_fixed_1mm.py`
-- Full guides: [docs/guides/OVERVIEW.md](docs/guides/OVERVIEW.md)
+- Pipeline and hardware matrix: [docs/guides/OVERVIEW.md](docs/guides/OVERVIEW.md)
+- Franka install and robot connection: [../README.md](../README.md), [../docs/ROBOT_CONNECTION.md](../docs/ROBOT_CONNECTION.md)
