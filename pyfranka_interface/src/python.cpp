@@ -85,7 +85,7 @@ PYBIND11_MODULE(pyfranka_interface, m)
 
     //# You can use these values directly, for example, to set update flags
     
-    //robot = franka.Robot_('172.16.0.2',False)
+    //robot = franka.Robot_('192.168.2.10',False)
     //robot.set_update_flags(update_coriolis | update_mass)
 
      py::enum_<UpdateFlags>(m, "UpdateFlags")

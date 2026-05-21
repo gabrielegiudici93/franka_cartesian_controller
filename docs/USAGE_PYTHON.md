@@ -8,7 +8,7 @@ The library exposes a `Robot_` class with high-level helpers and callback-based 
 import pyfranka_interface as franka
 
 robot = franka.Robot_(
-    "172.16.0.2",        # robot IP
+    "192.168.2.10",      # robot IP
     False,                # use_gripper_hand (set True if Panda has hand)
     hand_franka=False,
     auto_init=True,

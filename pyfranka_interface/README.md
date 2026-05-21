@@ -78,8 +78,8 @@ python example.py  # Use the actual name of your library
 
 ## Panda connection
 
-Connect Ethernet directly to the Panda's control unit. Set IPv4 connection to Manual / Static with Mask `255.255.255.0` and address `172.16.0.10` (or any free IP on the same subnet).
-Open a browser and navigate to `http://172.16.0.2` to access the Desk interface. Desk username and password are set by your lab admin at first robot setup — ask whoever configured the robot if you don't have them.
+Connect Ethernet directly to the Panda's control unit. Set IPv4 on the same subnet as the robot (e.g. `192.168.2.x`, mask `255.255.255.0`).
+Open a browser and navigate to `http://192.168.2.10` to access the Desk interface. Desk username and password are set by your lab admin at first robot setup — ask whoever configured the robot if you don't have them.
 
 ## Library link
 

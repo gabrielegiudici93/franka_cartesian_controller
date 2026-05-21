@@ -25,7 +25,7 @@ ReturnControlCommand control_callback(SimpleState& state,
 }
 
 int main() {
-    RobotInterface<void> bot("172.16.0.2");
+    RobotInterface<void> bot("192.168.2.10");
     bot.setController(&control_callback, ControlMode::cartesian_pose);
     bot.run();   // blocking
 }
@@ -41,7 +41,7 @@ struct MyData {
 
 ReturnControlCommand callback(SimpleState& s, SimpleState& i, MyData& d, double t) { ... }
 
-RobotInterface<MyData> bot("172.16.0.2");
+RobotInterface<MyData> bot("192.168.2.10");
 bot.setCtrl(&callback, ControlMode::cartesian_pose);
 bot.run();
 ```

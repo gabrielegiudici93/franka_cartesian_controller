@@ -53,7 +53,7 @@ def print_data_thread(print_data_object):
 
 
 # Create a robot object
-r = franka.Robot_('172.16.0.2',False)
+r = franka.Robot_('192.168.2.10',False)
 
 ### Set the control interface to switch between different control modes
 controlInterface = "joint_pos"

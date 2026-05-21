@@ -1,20 +1,11 @@
 # Example 04 — Press 10 Points (FT Only)
 
-Robot moves to 10 predefined XY offsets and presses to ~3N using the FT sensor only.
-**Does not** open the magnetic skin port (safe to run alongside visualization if needed).
-
-## Run
-
-From the repo root, with the env active and the robot reachable (see [`docs/ROBOT_CONNECTION.md`](../../../docs/ROBOT_CONNECTION.md)):
-
 ```bash
-cd magtec_models
-./examples/04_press_10_points/run.sh
+conda activate franka_interface
+export LD_LIBRARY_PATH=$HOME/franka_cartesian_controller/pyfranka_interface/third_party/libfranka/lib:$LD_LIBRARY_PATH
+cd ~/franka_cartesian_controller/magtec_models
+
+python3 src/franka_controller/franka_10_random_points.py
 ```
 
-Press Enter between points. Loops until Ctrl+C.
-
-## When to use
-
-- Validate robot + FT before full skin collection
-- Quick mechanical check of the 10-point grid
+Press Enter between points. Ctrl+C to stop.

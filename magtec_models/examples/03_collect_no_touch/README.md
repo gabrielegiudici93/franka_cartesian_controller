@@ -1,18 +1,12 @@
 # Example 03 — No-Touch Baseline Collection
 
-Records magnetic sensor data **without** moving the robot. Use before/after skin changes.
-
-## Run
-
-From the repo root, after activating the env (`conda activate franka_interface`):
-
 ```bash
-cd magtec_models
-./examples/03_collect_no_touch/run.sh
+conda activate franka_interface
+export LD_LIBRARY_PATH=$HOME/franka_cartesian_controller/pyfranka_interface/third_party/libfranka/lib:$LD_LIBRARY_PATH
+cd ~/franka_cartesian_controller/magtec_models
+
+python3 src/franka_controller/collect_no_touch_data.py \
+  --stretch 0 10 20 \
+  --data-dir data/Multiple_Points \
+  --run-label no_touch_$(date +%Y%m%d_%H%M%S)
 ```
-
-Output: `data/Multiple_Points/no_touch_<timestamp>/`
-
-## Customize
-
-Edit `run.sh` for stretch levels and `--run-label`.

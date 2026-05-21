@@ -14,7 +14,7 @@ frequency_vec = 2*np.ones((dim_joints,))
 amplitude_vec = np.array([0.15,0.,0.0,0.0,0.0,0.0,0.0])
 des_traj = SinusoidalTraj.InitTrajectoryVector(dim_joints,y_center, frequency_vec, tzero_y, amplitude_vec)
 
-r = franka.Robot_('172.16.0.2',False)
+r = franka.Robot_('192.168.2.10',False)
 
 cur_perfomance = franka.CtrlPerformance()
 

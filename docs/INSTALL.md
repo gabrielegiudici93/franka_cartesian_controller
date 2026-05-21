@@ -1,6 +1,8 @@
 # Installation — Franka Cartesian Controller
 
-Step-by-step build & install. Tested on Ubuntu 20.04 / 22.04.
+Step-by-step build and install. Tested on **Ubuntu 20.04 / 22.04 / 24.04**.
+
+The main tutorial lives in the root [README.md](../README.md); this file is the detailed reference.
 
 ---
 
@@ -14,7 +16,7 @@ sudo apt install -y \
     python3-dev
 ```
 
-Make sure you are a member of the `dialout` group (for FT and skin USB-serial later):
+USB serial (optional, for force sensor / MagTec later):
 
 ```bash
 sudo usermod -aG dialout $USER
@@ -25,90 +27,107 @@ sudo usermod -aG dialout $USER
 
 ## 2. Real-time kernel (recommended)
 
-The Franka requires a low-latency / real-time kernel for stable control. Follow Franka Emika's official guide:
-
 https://frankaemika.github.io/docs/installation_linux.html#setting-up-the-real-time-kernel
 
-If you skip this step, control will still work but may drop frames.
+Control can work without it but may drop frames.
 
 ---
 
 ## 3. Conda / Mamba environment
 
+Install [Miniforge](https://github.com/conda-forge/miniforge) if conda is not available, then:
+
 ```bash
 cd ~/franka_cartesian_controller
-conda env create -f environment.yml
+mamba env create -f environment.yml
 conda activate franka_interface
 ```
-
-(`mamba env create -f environment.yml` also works.)
 
 ---
 
 ## 4. libfranka
 
-The Franka C++ library v0.9.2 is **already vendored** under:
+Vendored **0.9.2** under:
 
 ```
 pyfranka_interface/third_party/libfranka/
   ├── include/
-  └── lib/  (libfranka.so, libfranka.so.0.9, libfranka.so.0.9.2)
+  └── lib/
 ```
 
-You must expose it to the linker each shell session you build/run in:
+### Symlinks
+
+The linker expects `libfranka.so`. If only `libfranka.so.0.9.2` is present:
+
+```bash
+cd ~/franka_cartesian_controller/pyfranka_interface/third_party/libfranka/lib
+ln -sf libfranka.so.0.9.2 libfranka.so
+ln -sf libfranka.so.0.9.2 libfranka.so.0.9
+```
+
+### Runtime path
 
 ```bash
 export LD_LIBRARY_PATH=$HOME/franka_cartesian_controller/pyfranka_interface/third_party/libfranka/lib:$LD_LIBRARY_PATH
 ```
 
-Add the export line to your `~/.bashrc` for convenience.
-
-**If your robot uses a Franka Control version that requires a different libfranka**, follow Franka's docs to build the matching libfranka from source, then replace the contents of `pyfranka_interface/third_party/libfranka/` with your build.
+Add that line to `~/.bashrc` for convenience.
 
 ---
 
-## 5. Build & install `pyfranka_interface`
+## 5. Build and install `pyfranka_interface`
+
+**Recommended (setup.py):**
+
+```bash
+conda activate franka_interface
+export LD_LIBRARY_PATH=$HOME/franka_cartesian_controller/pyfranka_interface/third_party/libfranka/lib:$LD_LIBRARY_PATH
+
+cd ~/franka_cartesian_controller/pyfranka_interface
+python setup.py build_ext --inplace
+python setup.py install
+```
+
+**Alternative (waf)** — only if `wscript` exists in `pyfranka_interface/`:
 
 ```bash
 cd ~/franka_cartesian_controller/pyfranka_interface
-./run_build.sh
-```
-
-`run_build.sh` runs `waf configure --python && waf`, copies the resulting `.so` into `src/`, and runs `python setup.py install` into the active conda env.
-
-Verify:
-
-```bash
-python3 -c "import pyfranka_interface as franka; print('pyfranka_interface OK')"
+python3 ./waf configure --python
+python3 ./waf
+python3 setup.py install
 ```
 
 ---
 
-## 6. MagTec skin stack (optional)
-
-If you also want the tactile-skin examples (visualization, data collection, training):
+## 6. Verify (no robot)
 
 ```bash
+conda activate franka_interface
 cd ~/franka_cartesian_controller
-pip install -r requirements-magtec.txt
+python scripts/test_import.py
 ```
 
-Then configure hardware:
+---
+
+## 7. Robot test (no MagTec)
+
+Network and FCI: [ROBOT_CONNECTION.md](ROBOT_CONNECTION.md).
 
 ```bash
+export ROBOT_IP=192.168.2.10   # your robot IP
+python scripts/test_robot.py
+```
+
+---
+
+## 8. MagTec skin stack (optional)
+
+```bash
+pip install -r requirements-magtec.txt
 cd magtec_models
 cp config/hardware.example.yaml config/hardware.yaml
-# edit ROBOT_IP, FT_PORT, STRETCHMAGTEC_PORT, reference position, initial joints
-python3 src/franka_controller/config.py     # prints loaded config
+# edit ROBOT_IP, ports, etc.
 ```
-
----
-
-## 7. First robot test
-
-→ [ROBOT_CONNECTION.md](ROBOT_CONNECTION.md) for network + FCI activation.
-
-→ [USAGE_PYTHON.md](USAGE_PYTHON.md) for a minimal motion example.
 
 ---
 
@@ -116,8 +135,10 @@ python3 src/franka_controller/config.py     # prints loaded config
 
 | Symptom | Fix |
 |---------|-----|
-| `ImportError: libfranka.so.0.9: cannot open shared object file` | `export LD_LIBRARY_PATH=$HOME/franka_cartesian_controller/pyfranka_interface/third_party/libfranka/lib:$LD_LIBRARY_PATH` |
-| `waf configure` fails on pybind11 | check `conda activate franka_interface` and `which python3` |
-| Robot not reachable | see [ROBOT_CONNECTION.md](ROBOT_CONNECTION.md) |
-| `reflex_aborted` mid-motion | reduce `ROBOT_SPEED_FACTOR`, unlock brakes on Desk, reset reflexes |
-| Permission denied on `/dev/ttyUSB*` | `sudo usermod -aG dialout $USER`, then log out/in |
+| `ImportError: libfranka.so.0.9` | `libfranka.so` symlinks + `LD_LIBRARY_PATH` |
+| `cannot find -lfranka` | Same symlinks in `third_party/libfranka/lib/` |
+| `waf configure` / no `wscript` | Use `setup.py` build (section 5) |
+| `waf configure` fails on pybind11 | `conda activate franka_interface`; `which python3` |
+| Robot not reachable | [ROBOT_CONNECTION.md](ROBOT_CONNECTION.md) |
+| `reflex_aborted` | Lower `speed_factor`; reset reflexes on Desk |
+| Permission denied on `/dev/ttyUSB*` | `dialout` group + re-login |

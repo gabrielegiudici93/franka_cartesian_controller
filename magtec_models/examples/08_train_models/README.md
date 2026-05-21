@@ -1,35 +1,21 @@
 # Example 08 — Train Models
 
-Train location / stretch / force regressors from collected HDF5 data.
-
-## Prerequisites
-
-- Normal-force dataset folder, e.g. `data/Multiple_Points/my_run_000pct.h5` parent dir
-- Optional shear dataset for combined training
-
-## Run (template)
-
-From the repo root, after activating the env:
+Edit paths, then:
 
 ```bash
-cd magtec_models
-./examples/08_train_models/run.sh
-```
+conda activate franka_interface
+export LD_LIBRARY_PATH=$HOME/franka_cartesian_controller/pyfranka_interface/third_party/libfranka/lib:$LD_LIBRARY_PATH
+cd ~/franka_cartesian_controller/magtec_models
 
-Edit `run.sh` and set:
+python3 src/training/train_best_models.py \
+  --normal-dir data/Multiple_Points/YOUR_NORMAL_RUN \
+  --run-label collab_demo_models \
+  --remove-outliers
 
-- `NORMAL_DIR` — folder with normal-force HDF5 files
-- `SHEAR_DIR` — folder with shear HDF5 (or leave empty)
-- `RUN_LABEL` — output name under `models/`
-
-## Inspect data first
-
-```bash
-python3 src/training/inspect_h5_files.py data/Multiple_Points/<your_run>/
-```
-
-## Clean sequences (optional)
-
-```bash
-python3 src/training/clean_sequences.py --help
+# optional shear data:
+python3 src/training/train_best_models.py \
+  --normal-dir data/Multiple_Points/YOUR_NORMAL_RUN \
+  --shear-dir data/Multiple_Points/YOUR_SHEAR_RUN \
+  --run-label collab_demo_models \
+  --remove-outliers
 ```

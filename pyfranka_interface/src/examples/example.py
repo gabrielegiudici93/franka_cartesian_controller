@@ -3,7 +3,7 @@ import pyfranka_interface as franka
 import math
 import numpy as np
 
-r = franka.Robot_('172.16.0.2',False)
+r = franka.Robot_('192.168.2.10',False)
 #r.translate([0, 0, -0.1], 2)
 #r.rotate([math.pi / 4, 0, 0])
 
