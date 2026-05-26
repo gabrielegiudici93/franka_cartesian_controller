@@ -42,6 +42,7 @@ Run from `magtec_models/` after the setup block above.
 | 07 | Shear points 3–8 | `python3 src/franka_controller/franka_shear_test_points_3_8_fixed_1mm.py` |
 | 08 | Train models | `python3 src/training/train_best_models.py --normal-dir data/Multiple_Points/YOUR_RUN --run-label collab_demo_models --remove-outliers` |
 | **09** | **Robot only (no skin, no FT)** | `python3 src/franka_controller/franka_motion_test_no_sensors.py` |
+| **10** | **Keyboard teleoperation** (robot + optional sensor GUI) | `python3 src/franka_controller/teleop_franka_keyboard.py` |
 
 ### Example 09 options (no sensors)
 
@@ -74,8 +75,9 @@ python3 ~/franka_cartesian_controller/scripts/test_robot.py
 | 05 | ✔ | ✔ | ✔ |
 | 08 | — | — | — |
 | **09** | ✔ | — | — |
+| **10** | ✔ | ✔ | ✔ |
 
-**No magnetic skin?** Use **09**. **FT but no skin?** Use **04 / 06 / 07**.
+**No magnetic skin?** Use **09**. **FT but no skin?** Use **04 / 06 / 07**. **Manual jogging with sensors?** Use **10** — [TELEOPERATION.md](docs/guides/TELEOPERATION.md).
 
 Only **one** process at a time may use the skin serial port. Robot examples need FCI active — [../docs/ROBOT_CONNECTION.md](../docs/ROBOT_CONNECTION.md).
 
@@ -129,6 +131,7 @@ Recommended for full datasets: **example 05** → `franka_skin_test_multiple_poi
 - `src/franka_controller/collect_no_touch_data.py` — baseline without robot
 - `src/franka_controller/franka_10_random_points.py` — 10-point press, FT only
 - `src/franka_controller/franka_motion_test_no_sensors.py` — robot grid, no sensors
+- `src/franka_controller/teleop_franka_keyboard.py` — manual keyboard teleop + optional sensor GUI
 
 ### Visualization
 - `src/validation_tests/15_taxels_visualization.py` — live taxel GUI
@@ -144,4 +147,5 @@ Recommended for full datasets: **example 05** → `franka_skin_test_multiple_poi
 Further reading:
 
 - [Data collection guide](docs/guides/DATA_COLLECTION.md) — **start here for a new dataset**
+- [Teleoperation guide](docs/guides/TELEOPERATION.md) — keyboard control of the robot
 - [Workflow overview](docs/guides/OVERVIEW.md)

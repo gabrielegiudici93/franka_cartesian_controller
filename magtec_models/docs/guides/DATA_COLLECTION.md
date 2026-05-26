@@ -14,6 +14,7 @@ Step-by-step instructions for starting a **new** multi-point dataset with the Fr
 | Shear forces (Fx/Fy protocol) | `franka_skin_test_shear_forces.py` | 06 (full) |
 | Magnetic baseline only (no robot) | `collect_no_touch_data.py` | 03 |
 | Robot + FT grid check (no skin serial) | `franka_10_random_points.py` | 04 |
+| Manual keyboard teleop (pose finding) | `teleop_franka_keyboard.py` | 10 |
 
 **For a new standard dataset, use example 05:**
 
@@ -200,6 +201,7 @@ ls -lh data/Multiple_Points/YOUR_RUN_LABEL/
 ## Related docs
 
 - [MagTec README](../../README.md)
+- [Teleoperation guide](TELEOPERATION.md) — manual jogging before collection
 - [Workflow overview](OVERVIEW.md)
 - [Example 05 README](../../examples/05_collect_multipoint_data/README.md)
 - [Franka robot connection](../../../docs/ROBOT_CONNECTION.md)

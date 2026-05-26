@@ -1,6 +1,7 @@
 # MagTec Workflow Overview
 
-**New dataset:** follow the dedicated [Data Collection Guide](DATA_COLLECTION.md).
+**New dataset:** [Data Collection Guide](DATA_COLLECTION.md).  
+**Manual robot control:** [Teleoperation Guide](TELEOPERATION.md).
 
 ## Typical pipeline
 
