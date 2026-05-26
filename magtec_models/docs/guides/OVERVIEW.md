@@ -1,5 +1,7 @@
 # MagTec Workflow Overview
 
+**New dataset:** follow the dedicated [Data Collection Guide](DATA_COLLECTION.md).
+
 ## Typical pipeline
 
 1. **Visualize** — confirm sensors and calibration (`examples/01` or `02`)

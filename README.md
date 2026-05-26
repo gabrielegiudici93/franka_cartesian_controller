@@ -237,7 +237,8 @@ Not required for the Franka controller alone.
 pip install -r requirements-magtec.txt
 ```
 
-**→** [magtec_models/README.md](magtec_models/README.md)
+**→** [magtec_models/README.md](magtec_models/README.md)  
+**→** [New data collection guide](magtec_models/docs/guides/DATA_COLLECTION.md)
 
 ---
 
@@ -250,6 +251,7 @@ pip install -r requirements-magtec.txt
 | Python API | [docs/USAGE_PYTHON.md](docs/USAGE_PYTHON.md) |
 | C++ API | [docs/USAGE_CPP.md](docs/USAGE_CPP.md) |
 | Upstream build notes | [pyfranka_interface/README.md](pyfranka_interface/README.md) |
+| MagTec data collection | [magtec_models/docs/guides/DATA_COLLECTION.md](magtec_models/docs/guides/DATA_COLLECTION.md) |
 
 ---
 

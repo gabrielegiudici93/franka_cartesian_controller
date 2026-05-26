@@ -2,13 +2,16 @@
 
 Full collection: robot + FT + magnetic skin → HDF5 under `data/Multiple_Points/`.
 
-This runs `franka_skin_test_multiple_points.py`, which configures the point grid and delegates to the core engine **`franka_skin_test.py`** (see [magtec_models/README.md](../../README.md#data-collection-franka_skin_testpy-core-engine)).
+This runs `franka_skin_test_multiple_points.py`, which configures the point grid and delegates to the core engine **`franka_skin_test.py`**.
+
+**Full step-by-step guide (recommended):** [docs/guides/DATA_COLLECTION.md](../../docs/guides/DATA_COLLECTION.md)
 
 ## Before running
 
 1. `config/hardware.yaml` configured
-2. Skin calibrated (example 01)
+2. Skin calibrated (example 01) — **close visualization before starting**
 3. Robot unlocked, FCI active — [../../../docs/ROBOT_CONNECTION.md](../../../docs/ROBOT_CONNECTION.md)
+4. Edit collection settings in `src/franka_controller/franka_skin_test_multiple_points.py` if needed (`STRETCH_LEVELS`, `TARGET_POSITION_COORDS`, etc.)
 
 ## Run
 
@@ -20,10 +23,16 @@ cd ~/franka_cartesian_controller/magtec_models
 python3 src/franka_controller/franka_skin_test_multiple_points.py
 ```
 
-Follow terminal prompts for stretch levels (0% / 10% / 20% by default).
+You will be asked for a **run label** (folder name under `data/Multiple_Points/`), then prompted before each stretch level.
 
-## Output
+## Verify output (required)
 
-`data/Multiple_Points/<run_label>_000pct.h5`, etc.
+```bash
+ls -lh data/Multiple_Points/YOUR_RUN_LABEL/
+```
 
-Train with example 08.
+The folder must contain `.h5` files. If it is empty, see the troubleshooting section in [DATA_COLLECTION.md](../../docs/guides/DATA_COLLECTION.md).
+
+## Train
+
+Example 08 — `train_best_models.py` with `--normal-dir` pointing at your run folder.

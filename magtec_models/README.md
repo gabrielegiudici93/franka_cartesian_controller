@@ -4,6 +4,8 @@ Data collection, real-time visualization, and training for the **15-taxel magnet
 
 **Prerequisites:** complete the Franka setup in the [top-level README](../README.md).
 
+**New data collection?** → **[docs/guides/DATA_COLLECTION.md](docs/guides/DATA_COLLECTION.md)** (step-by-step, which script to run, how to verify `.h5` output).
+
 ---
 
 ## Setup (every new terminal)
@@ -139,4 +141,7 @@ Recommended for full datasets: **example 05** → `franka_skin_test_multiple_poi
 - `src/training/clean_sequences.py` — preprocess HDF5
 - `src/training/inspect_h5_files.py` — debug HDF5 structure
 
-Further reading: [docs/guides/OVERVIEW.md](docs/guides/OVERVIEW.md)
+Further reading:
+
+- [Data collection guide](docs/guides/DATA_COLLECTION.md) — **start here for a new dataset**
+- [Workflow overview](docs/guides/OVERVIEW.md)
