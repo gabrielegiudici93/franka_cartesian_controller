@@ -560,6 +560,16 @@ def launch_predictor_gui(collection_done_event: threading.Event):
     adapter = SkinTestSensorAdapter()
     gui = predictor.RealTimePredictorGUI(model_dir=config.MODELS_DIR)
 
+    def _set_label_if_exists(attr_name, **kwargs):
+        widget = getattr(gui, attr_name, None)
+        if widget is not None:
+            widget.config(**kwargs)
+
+    def _set_button_state_if_exists(attr_name, state):
+        widget = getattr(gui, attr_name, None)
+        if widget is not None:
+            widget.config(state=state)
+
     # Replace heavy components with lightweight adapters
     gui.sensor_reader = adapter
     gui.model_predictor = SkinTestModelStub()
@@ -569,14 +579,14 @@ def launch_predictor_gui(collection_done_event: threading.Event):
         return False
 
     gui.load_models = load_models_stub
-    gui.load_models_button.config(state=tk.DISABLED)
-    gui.grid_viz_button.config(state=tk.DISABLED)
-    gui.start_button.config(state=tk.DISABLED)
-    gui.stop_button.config(state=tk.DISABLED)
+    _set_button_state_if_exists("load_models_button", tk.DISABLED)
+    _set_button_state_if_exists("grid_viz_button", tk.DISABLED)
+    _set_button_state_if_exists("start_button", tk.DISABLED)
+    _set_button_state_if_exists("stop_button", tk.DISABLED)
 
-    gui.contact_label.config(text="Contact: visualization only", foreground="purple")
-    gui.confidence_label.config(text="Confidence: --")
-    for lbl in gui.force_pred_labels:
+    _set_label_if_exists("contact_label", text="Contact: visualization only", foreground="purple")
+    _set_label_if_exists("confidence_label", text="Confidence: --")
+    for lbl in getattr(gui, "force_pred_labels", []):
         lbl.config(text="Fx/Fy/Fz: --", foreground="gray")
 
     adapter.start_sensors()
@@ -606,9 +616,9 @@ def launch_predictor_gui(collection_done_event: threading.Event):
             gui.stretchmagtec_labels[sensor_id][3].config(text=f"Hz: {hz_values[sensor_id]:.1f}")
 
         gui.model_predictor = None
-        gui.contact_label.config(text="Contact: visualization only", foreground="purple")
-        gui.confidence_label.config(text="Confidence: --", foreground="purple")
-        for lbl in gui.force_pred_labels:
+        _set_label_if_exists("contact_label", text="Contact: visualization only", foreground="purple")
+        _set_label_if_exists("confidence_label", text="Confidence: --", foreground="purple")
+        for lbl in getattr(gui, "force_pred_labels", []):
             lbl.config(text="Fx/Fy/Fz: --", foreground="gray")
 
         ft_data_plot, stretch_data_plot, time_data_plot = gui.sensor_reader.get_plot_data()
