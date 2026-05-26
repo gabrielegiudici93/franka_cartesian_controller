@@ -35,7 +35,15 @@ if str(SRC_ROOT) not in sys.path:
 
 # Import project modules after adjusting sys.path
 import franka_controller.config as config  # noqa: E402
-import validation_tests.real_time_predictor as predictor  # noqa: E402
+try:
+    import validation_tests.real_time_predictor as predictor  # noqa: E402
+except ModuleNotFoundError:
+    import importlib.util
+
+    _predictor_path = SRC_ROOT / "validation_tests" / "10_points_real_time_predictor.py"
+    _spec = importlib.util.spec_from_file_location("points_real_time_predictor", str(_predictor_path))
+    predictor = importlib.util.module_from_spec(_spec)
+    _spec.loader.exec_module(predictor)
 
 # =============================================================================
 # SINGLE-POINT CONFIGURATION
