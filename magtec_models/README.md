@@ -81,12 +81,62 @@ Per-example notes: `examples/<NN_*>/README.md`.
 
 ---
 
-## Core scripts
+## Data collection: `franka_skin_test.py` (core engine)
 
-- `src/franka_controller/franka_motion_test_no_sensors.py` — robot grid, no sensors
+**Yes — this file is in the repo:** `src/franka_controller/franka_skin_test.py`
+
+It is the **shared engine** for all robot-based skin data collection. You normally do **not** run it directly; higher-level scripts configure the grid, points, and stretch levels, then call it (via `runpy`) with the right settings from `config.py` / `hardware.yaml`.
+
+### What it does
+
+- Connects to the **Franka** (`pyfranka_interface`), **FT sensor**, and **StretchMagTec** magnetic skin
+- Moves the robot through a grid of press positions (9 offsets per location: center, N/S/E/W, corners)
+- Logs FT forces, magnetic channels, and end-effector pose at ~100 Hz into **HDF5** under `data/Multiple_Points/`
+- Handles calibration, stream stabilization, and press sequencing (normal force on Fz)
+
+### How other scripts use it
+
+| Script / example | Role relative to `franka_skin_test.py` |
+|------------------|----------------------------------------|
+| **`franka_skin_test_multiple_points.py`** (ex. **05**) | Multi-point normal-force collection; sets point grid and stretch levels, then **runs the engine** |
+| **`franka_skin_test_single_point.py`** | Single-location variant; same engine, one target pose |
+| **`franka_skin_test_shear_forces.py`** (ex. **06** full save) | Shear protocol (Fx/Fy holds); **reuses sensor classes and HDF5 layout** from the engine |
+| **`franka_shear_test_10_points_quick.py`** (ex. **06** quick) | Thin wrapper over shear script — no HDF5 save |
+| **`franka_shear_test_points_3_8_fixed_1mm.py`** (ex. **07**) | Shear on taxels 3–8; imports shear module |
+| **`collect_no_touch_data.py`** (ex. **03**) | **Independent** — magnetic skin only, no robot |
+| **`franka_10_random_points.py`** (ex. **04**) | **Independent** — robot + FT only (no skin serial) |
+| **`franka_motion_test_no_sensors.py`** (ex. **09**) | **Independent** — robot motion only, no FT/skin |
+
+Direct launch (advanced):
+
+```bash
+python3 src/franka_controller/franka_skin_test.py
+```
+
+Recommended for full datasets: **example 05** → `franka_skin_test_multiple_points.py` → `franka_skin_test.py`.
+
+---
+
+## Core scripts (reference)
+
+### Data collection
+- `src/franka_controller/franka_skin_test.py` — **core engine** (see above)
+- `src/franka_controller/franka_skin_test_multiple_points.py` — multi-point wrapper → engine
+- `src/franka_controller/franka_skin_test_single_point.py` — single-point wrapper → engine
+- `src/franka_controller/franka_skin_test_shear_forces.py` — shear collection
+- `src/franka_controller/collect_no_touch_data.py` — baseline without robot
 - `src/franka_controller/franka_10_random_points.py` — 10-point press, FT only
-- `src/franka_controller/franka_skin_test_multiple_points.py` — full collection
+- `src/franka_controller/franka_motion_test_no_sensors.py` — robot grid, no sensors
+
+### Visualization
 - `src/validation_tests/15_taxels_visualization.py` — live taxel GUI
-- `src/training/train_best_models.py` — training
+- `src/validation_tests/15_taxels_visualization_plus.py` — + XYZ plots + MP4
+- `src/validation_tests/liquid_magnet_15_taxels_sensorreader.py` — hybrid GUI
+- `src/validation_tests/10_points_real_time_predictor.py` — 10-point grid + ML
+
+### Training
+- `src/training/train_best_models.py` — main trainer
+- `src/training/clean_sequences.py` — preprocess HDF5
+- `src/training/inspect_h5_files.py` — debug HDF5 structure
 
 Further reading: [docs/guides/OVERVIEW.md](docs/guides/OVERVIEW.md)

@@ -8,6 +8,17 @@
 4. **Train** — sklearn models on HDF5 (`examples/08`)
 5. **Validate** — live GUI or predictor (`01`, `10_points_real_time_predictor`)
 
+## Collection engine
+
+All robot + skin HDF5 collection flows through **`src/franka_controller/franka_skin_test.py`**:
+
+- **Example 05** → `franka_skin_test_multiple_points.py` → calls the engine
+- **Shear examples** → `franka_skin_test_shear_forces.py` (and thin wrappers) → same sensor stack and HDF5 structure
+- **Example 03** → `collect_no_touch_data.py` (skin only, no robot)
+- **Example 04** → robot + FT validation only (no engine, no skin serial)
+
+See [README.md](../../README.md#data-collection-franka_skin_testpy-core-engine) for the full script map.
+
 ## Hardware dependencies
 
 | Script type | Robot | FT sensor | Magnetic skin |
