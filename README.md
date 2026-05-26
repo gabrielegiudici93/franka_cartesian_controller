@@ -252,6 +252,7 @@ pip install -r requirements-magtec.txt
 | C++ API | [docs/USAGE_CPP.md](docs/USAGE_CPP.md) |
 | Upstream build notes | [pyfranka_interface/README.md](pyfranka_interface/README.md) |
 | MagTec data collection | [magtec_models/docs/guides/DATA_COLLECTION.md](magtec_models/docs/guides/DATA_COLLECTION.md) |
+| Git commit & push | [docs/GIT_WORKFLOW.md](docs/GIT_WORKFLOW.md) |
 
 ---
 

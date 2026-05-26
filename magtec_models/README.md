@@ -4,7 +4,8 @@ Data collection, real-time visualization, and training for the **15-taxel magnet
 
 **Prerequisites:** complete the Franka setup in the [top-level README](../README.md).
 
-**New data collection?** → **[docs/guides/DATA_COLLECTION.md](docs/guides/DATA_COLLECTION.md)** (step-by-step, which script to run, how to verify `.h5` output).
+**New data collection?** → **[docs/guides/DATA_COLLECTION.md](docs/guides/DATA_COLLECTION.md)** (step-by-step, which script to run, how to verify `.h5` output).  
+**Commit & push changes?** → **[docs/GIT_WORKFLOW.md](../docs/GIT_WORKFLOW.md)** (English git commands).
 
 ---
 

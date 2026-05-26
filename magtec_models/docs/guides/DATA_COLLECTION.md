@@ -2,6 +2,8 @@
 
 Step-by-step instructions for starting a **new** multi-point dataset with the Franka robot, FT sensor, and 15-taxel magnetic skin.
 
+**Update the repo first:** [GIT_WORKFLOW.md](../../../docs/GIT_WORKFLOW.md) (`git pull`, `commit`, `push` in English).
+
 ---
 
 ## Which script should I run?
@@ -63,6 +65,8 @@ cd ~/franka_cartesian_controller
 git pull --rebase origin main
 cd magtec_models
 ```
+
+To save your own doc or script changes back to GitHub, see [GIT_WORKFLOW.md](../../../docs/GIT_WORKFLOW.md).
 
 ### 2. Configure hardware (once per bench)
 

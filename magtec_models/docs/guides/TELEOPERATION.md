@@ -3,7 +3,8 @@
 Manual control of the Franka end-effector from the keyboard, with optional real-time visualization of the FT sensor and 15-taxel magnetic skin.
 
 **Script:** `src/franka_controller/teleop_franka_keyboard.py`  
-**Example folder:** [examples/10_teleop_keyboard](../../examples/10_teleop_keyboard/README.md)
+**Example folder:** [examples/10_teleop_keyboard](../../examples/10_teleop_keyboard/README.md)  
+**Git (commit & push):** [GIT_WORKFLOW.md](../../../docs/GIT_WORKFLOW.md)
 
 ---
 
@@ -32,9 +33,12 @@ This is useful for **finding press poses**, checking contact, and debugging befo
 ## Run
 
 ```bash
+cd ~/franka_cartesian_controller
+git pull --rebase origin main
+
 conda activate franka_interface
 export LD_LIBRARY_PATH=$HOME/franka_cartesian_controller/pyfranka_interface/third_party/libfranka/lib:$LD_LIBRARY_PATH
-cd ~/franka_cartesian_controller/magtec_models
+cd magtec_models
 
 python3 src/franka_controller/teleop_franka_keyboard.py
 ```
